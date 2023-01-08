@@ -1,0 +1,45 @@
+[dev]
+    command = "npm run dev"
+    targetPort = 3000
+    port = 4000
+    publish = "dist"
+
+[build]
+    command = "npm run build"
+    publish = "dist"
+
+# [functions]
+#     external_node_modules = ["astro"]
+
+[[redirects]]
+    from = "/"
+    to = "/projects/"
+    status = 200
+    force = true
+
+[[headers]]
+    for = "/*"
+
+    [headers.values]
+        Content-Security-Policy = '''
+            default-src 'self';
+            script-src 'self' 'unsafe-inline';
+            object-src 'none';
+            base-uri 'none';
+            style-src 'self' 'unsafe-inline';
+            child-src 'none';
+            img-src * blob: data:;
+            media-src 'self';
+            connect-src *;
+            font-src 'self';
+        '''
+
+        Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+        Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+        X-XSS-Protection = "1; mode=block"
+        X-Frame-Options = "DENY"
+        X-Content-Type-Options = "nosniff"
+        X-DNS-Prefetch-Control = "on"
+        Referrer-Policy = "no-referrer-when-downgrade"
+
+        Cache-Control = "no-cache, no-store"

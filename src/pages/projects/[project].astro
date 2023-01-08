@@ -1,0 +1,30 @@
+---
+const project = Astro.params.project;
+
+Astro.response.headers.set(
+  "Cache-Control",
+  "public, s-maxage=10, stale-while-revalidate=59"
+);
+
+if (project === "1577") {
+  return new Response(null, { status: 404 });
+  //   return Astro.redirect("/404");
+}
+---
+
+<p>path: `/projects/[project]`</p>
+
+<br />
+
+<p>project param: `{project}`</p>
+
+<br />
+
+<p>should throw `Not found` if project param is `1577`</p>
+
+<br />
+
+<p>
+  should have custom override `Cache-Control: public, s-maxage=10,
+  stale-while-revalidate=59` over default `Cache-Control: no-cache, no-store`
+</p>
