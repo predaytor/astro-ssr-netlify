@@ -1,5 +1,5 @@
 import { defineConfig } from "astro/config";
-import netlify from "@astrojs/netlify/functions";
+import { netlifyFunctions } from "@astrojs/netlify";
 
 // https://astro.build/config
 export default defineConfig({
@@ -8,5 +8,5 @@ export default defineConfig({
     prerender: true,
   },
   output: "server",
-  adapter: netlify(),
+  adapter: netlifyFunctions(),
 });
